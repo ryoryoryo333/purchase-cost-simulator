@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10243a">
+<title>購買コスト削減シミュレーター</title>
+<style>
+:root{--navy:#10243a;--blue:#2563eb;--green:#0f9f6e;--ink:#182433;--muted:#687789;--line:#dfe6ee;--bg:#f3f6fa;--card:#fff;--red:#c2413b;--shadow:0 8px 28px rgba(25,45,70,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;font-size:14px}button,input{font:inherit}button{cursor:pointer}.top{background:linear-gradient(115deg,#10243a,#1d4265);color:#fff;padding:25px max(20px,calc((100% - 1200px)/2)) 23px}.top small{opacity:.7;letter-spacing:.14em;font-weight:700}.top h1{margin:7px 0 5px;font-size:clamp(22px,4vw,31px)}.top p{margin:0;color:#d4e0ed}.wrap{max-width:1200px;margin:22px auto;padding:0 18px 55px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-bottom:14px}.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;padding:9px 13px;font-weight:650}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.dark{background:var(--navy);border-color:var(--navy);color:#fff}.btn.danger{color:var(--red)}.btn:disabled{opacity:.45;cursor:not-allowed}.panel{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:19px;margin-bottom:16px;box-shadow:var(--shadow)}.panel h2{font-size:17px;margin:0 0 15px;display:flex;align-items:center;gap:9px}.num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;background:#eaf1ff;color:var(--blue);font-size:13px}.fields{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.field label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:6px}.field input{width:100%;border:1px solid #cfd9e4;border-radius:8px;padding:10px;background:#fff;color:var(--ink);min-width:0}.field input:focus{outline:2px solid #b8d0ff;border-color:var(--blue)}.hint{color:var(--muted);font-size:12px;margin-top:9px}.table-wrap{overflow-x:auto}.products{width:100%;border-collapse:separate;border-spacing:0;min-width:940px}.products th{background:#f2f5f9;color:#536274;font-size:11px;text-align:left;padding:10px 8px;white-space:nowrap}.products td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle}.products input{width:100%;min-width:80px;padding:8px 7px;border:1px solid #d5dee8;border-radius:7px}.products input[type=number]{min-width:84px}.products .calc{font-weight:700;white-space:nowrap}.products .save{color:var(--green)}.products .negative{color:var(--red)}.products .imagebox{width:54px;height:46px;border:1px dashed #cbd5e1;border-radius:7px;display:grid;place-items:center;overflow:hidden;color:#8290a0;font-size:10px}.imagebox img{width:100%;height:100%;object-fit:contain}.row-actions{display:flex;gap:5px}.iconbtn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:6px 8px;color:#475569}.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fff}.metric .label{font-size:12px;color:var(--muted);font-weight:650}.metric .value{font-size:clamp(19px,2.5vw,27px);font-weight:800;margin-top:7px;letter-spacing:-.03em}.metric .sub{font-size:11px;color:var(--muted);margin-top:4px}.green{color:var(--green)}.red{color:var(--red)}.costgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.costbox{background:#f7f9fc;border:1px solid var(--line);border-radius:11px;padding:14px}.costbox strong{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}.costbox input{width:100%;padding:9px;border:1px solid #cfd9e4;border-radius:8px}.chartbox{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff}.chartbox svg{display:block;width:100%;height:auto;min-height:230px}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin:4px 8px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.breakdown{width:100%;border-collapse:collapse}.breakdown th,.breakdown td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right}.breakdown th:first-child,.breakdown td:first-child{text-align:left}.breakdown th{font-size:12px;color:var(--muted);background:#f6f8fb}.note{background:#fff8e8;border:1px solid #f1dfb7;border-radius:9px;padding:11px 13px;color:#76551a;font-size:12px;line-height:1.65}.status{font-size:12px;color:var(--muted);margin-left:auto}.hidden{display:none!important}.filelabel{display:inline-block}.filelabel input{display:none}.foot{text-align:center;color:var(--muted);font-size:11px;margin-top:20px}
+@media(max-width:760px){.fields{grid-template-columns:1fr 1fr}.fields .wide{grid-column:1/-1}.summary{grid-template-columns:1fr 1fr}.panel{padding:14px}.toolbar{justify-content:flex-start}.costgrid{grid-template-columns:1fr}.wrap{padding:0 12px 35px}.top{padding:22px 17px}.metric{padding:11px}.products{min-width:900px}}
+@media print{body{background:#fff}.top{background:#fff;color:#10243a;padding:8px 0}.top p,.toolbar,.no-print,.foot{display:none!important}.wrap{max-width:none;margin:0;padding:0}.panel{box-shadow:none;break-inside:avoid;border-color:#bbb;margin-bottom:10px;padding:12px}.products{min-width:0;font-size:10px}.products input{border:0;padding:2px;min-width:0}.products th,.products td{padding:5px}.imagebox{display:none}.chartbox{break-inside:avoid}.summary{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header class="top"><small>PURCHASING · COST ANALYSIS</small><h1>購買コスト削減シミュレーター</h1><p>商品切り替えによる年間削減効果と投資回収期間を見える化</p></header>
+<main class="wrap">
+<div class="toolbar no-print">
+<button class="btn" id="newBtn">新規案件</button><button class="btn" id="saveBtn">案件を保存</button><button class="btn" id="loadBtn">保存案件を開く</button><button class="btn" id="jsonBtn">データ書き出し</button><label class="btn filelabel">データ読み込み<input id="jsonFile" type="file" accept=".json,application/json"></label><button class="btn primary" id="printBtn">PDF / 印刷</button><button class="btn" id="csvBtn">Excel用CSV</button>
+</div>
+<section class="panel">
+<h2><span class="num">1</span>比較案件の基本情報</h2>
+<div class="fields">
+<div class="field wide"><label for="project">案件名・提案タイトル</label><input id="project" placeholder="例：手術材料の採用品目見直し"></div>
+<div class="field"><label for="facility">対象施設・部署</label><input id="facility" placeholder="例：〇〇病院"></div>
+<div class="field"><label for="date">作成日</label><input id="date" type="date"></div>
+</div>
+</section>
+<section class="panel">
+<h2><span class="num">2</span>切り替え商品比較 <span class="status" id="rowCount">0商品</span></h2>
+<div class="table-wrap">
+<table class="products"><thead><tr><th style="width:45px">画像</th><th style="width:140px">切り替え元メーカー</th><th style="width:150px">切り替え元商品名</th><th>年間数量</th><th>単価（円）</th><th>現在年間額</th><th style="width:140px">切り替え先メーカー</th><th style="width:150px">切り替え先商品名</th><th>年間数量</th><th>単価（円）</th><th>切り替え後年間額</th><th>年間削減額</th><th></th></tr></thead><tbody id="productRows"></tbody></table>
+</div>
+<div class="toolbar no-print" style="justify-content:space-between;margin:14px 0 0"><button class="btn primary" id="addBtn">＋ 商品を追加</button><span class="hint">数量・単価を入力すると金額と削減効果を自動計算します。</span></div>
+</section>
+<section class="panel">
+<h2><span class="num">3</span>初期費用・導入コスト</h2>
+<div class="costgrid">
+<div class="costbox"><strong>商品別初期費用 合計（円）</strong><div class="hint">各商品の行に入力できます。下の合計に自動反映されます。</div><div id="itemCostTotal" style="font-size:20px;font-weight:800;margin-top:7px">0円</div></div>
+<div class="costbox"><strong>全体共通の初期費用（円）</strong><input id="commonCost" type="number" min="0" step="1" value="0" placeholder="例：150000"><div class="hint">導入教育・システム改修・一括導入費など</div></div>
+</div>
+<div class="hint">商品別費用は各商品の「初期費用」欄で入力します。回収計算には商品別・共通費用の両方を含めます。</div>
+</section>
+<section class="panel">
+<h2><span class="num">4</span>経済効果サマリー</h2>
+<div class="summary">
+<div class="metric"><div class="label">現在の年間費用</div><div class="value" id="currentTotal">0円</div><div class="sub">切り替え元の年間合計</div></div>
+<div class="metric"><div class="label">切り替え後の年間費用</div><div class="value" id="newTotal">0円</div><div class="sub">切り替え先の年間合計</div></div>
+<div class="metric"><div class="label">年間削減効果</div><div class="value green" id="annualSaving">0円</div><div class="sub" id="savingRate">削減率 －</div></div>
+<div class="metric"><div class="label">初期費用総額</div><div class="value" id="initialTotal">0円</div><div class="sub">商品別＋全体共通</div></div>
+</div>
+<div class="summary" style="margin-top:12px">
+<div class="metric"><div class="label">月間削減効果</div><div class="value" id="monthlySaving">0円</div><div class="sub">年間削減効果÷12</div></div>
+<div class="metric"><div class="label">投資回収期間</div><div class="value" id="payback">－</div><div class="sub" id="paybackDays">回収日数 －</div></div>
+<div class="metric"><div class="label">1年後の累積純削減額</div><div class="value" id="year1">0円</div><div class="sub">初期費用控除後</div></div>
+<div class="metric"><div class="label">5年後の累積純削減額</div><div class="value" id="year5">0円</div><div class="sub">初期費用控除後</div></div>
+</div>
+<div class="note" id="resultNote" style="margin-top:13px">商品情報を入力すると、年間削減効果と投資回収期間を自動計算します。</div>
+</section>
+<section class="panel">
+<h2><span class="num">5</span>損益分岐点・累積削減効果グラフ</h2>
+<div class="chartbox"><div id="chart" aria-label="累積純削減額グラフ"></div><div class="legend"><span><i class="dot" style="background:#0f9f6e"></i>初期費用控除後の累積純削減額</span><span><i class="dot" style="background:#c58b25"></i>損益分岐点（0円）</span></div></div>
+<div class="hint" id="chartCaption">横軸：導入後の経過月数／縦軸：初期費用控除後の累積純削減額</div>
+</section>
+<section class="panel">
+<h2><span class="num">6</span>中長期の削減効果</h2>
+<div class="table-wrap"><table class="breakdown"><thead><tr><th>期間</th><th>累積削減額（初期費用控除前）</th><th>初期費用</th><th>累積純削減額</th></tr></thead><tbody id="periodRows"></tbody></table></div>
+</section>
+<section class="panel no-print">
+<h2><span class="num">7</span>商品画像</h2>
+<p class="hint">メーカー・商品画像は、画像URLを登録すると比較表のサムネイルに表示できます。画像検索ボタンから候補を探し、画像URLを貼り付けてください。</p>
+<div id="imageManager"></div>
+</section>
+<div class="foot">購買コスト削減シミュレーター · 入力データはこのブラウザ内に保存されます</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const yen=n=>new Intl.NumberFormat('ja-JP',{style:'currency',currency:'JPY',maximumFractionDigits:0}).format(Number.isFinite(n)?n:0);
+const num=n=>Number(n)||0;
+let items=[],uid=0;
+function makeItem(data={}){return {id:++uid,fromMaker:data.fromMaker||'',fromName:data.fromName||'',fromQty:data.fromQty??0,fromPrice:data.fromPrice??0,toMaker:data.toMaker||'',toName:data.toName||'',toQty:data.toQty??0,toPrice:data.toPrice??0,setup:data.setup??0,image:data.image||''}}
+function addItem(data){items.push(makeItem(data));renderRows();calculate()}
+function field(value,attr,placeholder,type='text'){return '<input type="'+type+'" data-k="'+attr+'" value="'+String(value??'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')+'" placeholder="'+(placeholder||'')+'" '+(type==='number'?'min="0" step="any"':'')+'>'}
+function renderRows(){const body=$('productRows');body.innerHTML='';items.forEach((it,i)=>{const tr=document.createElement('tr');tr.dataset.id=it.id;const current=num(it.fromQty)*num(it.fromPrice),after=num(it.toQty)*num(it.toPrice),saving=current-after;
+tr.innerHTML='<td><div class="imagebox">'+(it.image?'<img src="'+it.image.replace(/"/g,'&quot;')+'" alt="商品画像" onerror="this.parentNode.textContent=\'画像なし\'">':'画像なし')+'</div></td>'+
+'<td>'+field(it.fromMaker,'fromMaker','メーカー名')+'</td><td>'+field(it.fromName,'fromName','商品名')+'</td><td>'+field(it.fromQty,'fromQty','0','number')+'</td><td>'+field(it.fromPrice,'fromPrice','0','number')+'</td><td class="calc">'+yen(current)+'</td>'+
+'<td>'+field(it.toMaker,'toMaker','メーカー名')+'</td><td>'+field(it.toName,'toName','商品名')+'</td><td>'+field(it.toQty,'toQty','0','number')+'</td><td>'+field(it.toPrice,'toPrice','0','number')+'</td><td class="calc">'+yen(after)+'</td><td class="calc '+(saving>=0?'save':'negative')+'">'+yen(saving)+'</td>'+
+'<td><div class="row-actions"><button class="iconbtn" data-action="image" title="画像URL">画像</button><button class="iconbtn" data-action="remove" title="削除">×</button></div><div style="margin-top:5px">'+field(it.setup,'setup','初期費用','number')+'</div></td>';
+body.appendChild(tr)});$('rowCount').textContent=items.length+'商品';renderImageManager()}
+$('productRows').addEventListener('input',e=>{const tr=e.target.closest('tr');if(!tr)return;const it=items.find(x=>x.id===Number(tr.dataset.id));if(!it)return;it[e.target.dataset.k]=e.target.type==='number'?num(e.target.value):e.target.value;calculate();const i=items.indexOf(it),cur=num(it.fromQty)*num(it.fromPrice),aft=num(it.toQty)*num(it.toPrice),sv=cur-aft;tr.children[5].textContent=yen(cur);tr.children[10].textContent=yen(aft);tr.children[11].textContent=yen(sv);tr.children[11].className='calc '+(sv>=0?'save':'negative');$('itemCostTotal').textContent=yen(items.reduce((s,x)=>s+num(x.setup),0));renderImageManager(false)});
+$('productRows').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const tr=b.closest('tr'),it=items.find(x=>x.id===Number(tr.dataset.id));if(b.dataset.action==='remove'){items=items.filter(x=>x!==it);renderRows();calculate()}if(b.dataset.action==='image'){const u=prompt('商品画像のURLを入力してください',it.image||'');if(u!==null){it.image=u.trim();renderRows()}}});
+function totals(){const current=items.reduce((s,x)=>s+num(x.fromQty)*num(x.fromPrice),0),after=items.reduce((s,x)=>s+num(x.toQty)*num(x.toPrice),0),setup=items.reduce((s,x)=>s+num(x.setup),0)+num($('commonCost').value);return {current,after,saving:current-after,setup,monthly:(current-after)/12}}
+function calculate(){const t=totals(),net1=t.saving-t.setup,net5=t.saving*5-t.setup,rate=t.current? t.saving/t.current*100:0;$('currentTotal').textContent=yen(t.current);$('newTotal').textContent=yen(t.after);$('annualSaving').textContent=yen(t.saving);$('annualSaving').className='value '+(t.saving>=0?'green':'red');$('savingRate').textContent='削減率 '+(t.current?rate.toFixed(1)+'%':'－');$('initialTotal').textContent=yen(t.setup);$('monthlySaving').textContent=yen(t.monthly);$('itemCostTotal').textContent=yen(items.reduce((s,x)=>s+num(x.setup),0));$('year1').textContent=yen(net1);$('year5').textContent=yen(net5);
+let months=null;if(t.saving>0){months=t.setup/(t.saving/12)}$('payback').textContent=t.setup===0?'即時':months!==null?months.toFixed(1)+'か月':'回収不可';$('paybackDays').textContent=months!==null&&t.setup>0?'回収目安 '+Math.ceil(t.setup/(t.saving/365.25))+'日':t.setup===0?'初期費用なし':'回収日数 －';
+let note='';if(items.length===0)note='商品を追加して、切り替え元・切り替え先の数量と単価を入力してください。';else if(t.saving<=0)note='切り替え後の年間費用が同額以上です。初期費用の回収はできません。数量・単価・対象範囲を再確認してください。';else if(t.setup===0)note='初期費用がないため、切り替え開始時点から削減効果が発生します。';else note='年間 '+yen(t.saving)+' の削減が見込まれます。初期費用 '+yen(t.setup)+' は約 '+months.toFixed(1)+'か月（約 '+Math.ceil(t.setup/(t.saving/365.25))+'日）で回収する試算です。';$('resultNote').textContent=note;
+$('periodRows').innerHTML=[1,3,5].map(y=>'<tr><td>'+y+'年</td><td>'+yen(t.saving*y)+'</td><td>'+yen(t.setup)+'</td><td class="'+(t.saving*y-t.setup>=0?'green':'red')+'"><strong>'+yen(t.saving*y-t.setup)+'</strong></td></tr>').join('');drawChart(t)}
+function drawChart(t){const w=850,h=300,left=75,right=22,top=20,bottom=42,maxM=60;const vals=[];for(let m=0;m<=maxM;m+=3)vals.push({m,v:t.saving*m/12-t.setup});const all=vals.map(x=>x.v).concat([0]);let min=Math.min(...all),max=Math.max(...all);if(min===max){min-=100;max+=100}const pad=(max-min)*.12;min-=pad;max+=pad;const x=m=>left+(w-left-right)*m/maxM,y=v=>top+(h-top-bottom)*(max-v)/(max-min);const path=vals.map((p,i)=>(i?'L':'M')+x(p.m).toFixed(1)+','+y(p.v).toFixed(1)).join(' ');let grid='';for(let i=0;i<=4;i++){const v=min+(max-min)*i/4,yy=y(v);grid+='<line x1="'+left+'" y1="'+yy+'" x2="'+(w-right)+'" y2="'+yy+'" stroke="#e7edf3"/><text x="'+(left-9)+'" y="'+(yy+4)+'" text-anchor="end" fill="#738195" font-size="11">'+(Math.abs(v)>=10000?(v/10000).toFixed(0)+'万':Math.round(v))+'</text>'}let ticks='';for(let m=0;m<=maxM;m+=12)ticks+='<text x="'+x(m)+'" y="'+(h-13)+'" text-anchor="middle" fill="#738195" font-size="11">'+m+'か月</text>';const zero=y(0);const crossing=t.saving>0?t.setup/(t.saving/12):null;let marker=crossing!==null&&crossing<=maxM?'<line x1="'+x(crossing)+'" y1="'+top+'" x2="'+x(crossing)+'" y2="'+(h-bottom)+'" stroke="#c58b25" stroke-dasharray="5 4"/><text x="'+Math.min(x(crossing)+7,w-right-90)+'" y="'+(top+13)+'" fill="#9a6b14" font-size="11">回収 '+crossing.toFixed(1)+'か月</text>':'';$('chart').innerHTML='<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="累積純削減額の推移">'+grid+'<line x1="'+left+'" y1="'+zero+'" x2="'+(w-right)+'" y2="'+zero+'" stroke="#c58b25" stroke-width="1.8" stroke-dasharray="5 4"/>'+ticks+'<path d="'+path+'" fill="none" stroke="#0f9f6e" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>'+marker+'<circle cx="'+x(60)+'" cy="'+y(vals[vals.length-1].v)+'" r="4.5" fill="#0f9f6e"/></svg>';$('chartCaption').textContent='横軸：導入後の経過月数（5年間）／縦軸：初期費用控除後の累積純削減額。金額は一定数量・単価で推移する前提。'}
+function renderImageManager(){renderImageManager(true)}function renderImageManager(doRender=true){if(!doRender)return;const el=$('imageManager');el.innerHTML=items.map((it,i)=>'<div style="display:flex;gap:8px;align-items:center;border-top:1px solid var(--line);padding:9px 0;flex-wrap:wrap"><div style="font-weight:700;min-width:160px">'+(it.fromName||'商品'+(i+1))+' → '+(it.toName||'切り替え先')+'</div><input data-img="'+it.id+'" value="'+String(it.image||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'" placeholder="画像URL（https://...）" style="flex:1;min-width:180px;padding:8px;border:1px solid #d5dee8;border-radius:7px"><button class="btn" data-search="'+it.id+'">画像を検索</button></div>').join('')||'<span class="hint">商品を追加すると画像を登録できます。</span>'}
+$('imageManager').addEventListener('change',e=>{if(e.target.dataset.img){const it=items.find(x=>x.id===Number(e.target.dataset.img));if(it){it.image=e.target.value;renderRows()}}});
+$('imageManager').addEventListener('click',e=>{const b=e.target.closest('button[data-search]');if(!b)return;const it=items.find(x=>x.id===Number(b.dataset.search));const q=encodeURIComponent((it.toMaker+' '+it.toName+' 商品画像').trim());window.open('https://www.google.com/search?tbm=isch&q='+q,'_blank','noopener')});
+$('addBtn').onclick=()=>addItem();$('commonCost').oninput=calculate;
+$('date').value=new Date().toISOString().slice(0,10);
+function snapshot(){return {project:$('project').value,facility:$('facility').value,date:$('date').value,commonCost:$('commonCost').value,items:items.map(({id,...x})=>x)}}
+function restore(d){$('project').value=d.project||'';$('facility').value=d.facility||'';$('date').value=d.date||'';$('commonCost').value=d.commonCost??0;items=[];(d.items||[]).forEach(x=>items.push(makeItem(x)));renderRows();calculate()}
+$('saveBtn').onclick=()=>{const name=($('project').value||'名称未設定')+'_'+new Date().toLocaleDateString('ja-JP');const saved=JSON.parse(localStorage.getItem('purchaseSimulatorSaved')||'{}');saved[name]=snapshot();localStorage.setItem('purchaseSimulatorSaved',JSON.stringify(saved));alert('このブラウザに案件を保存しました。')};
+$('loadBtn').onclick=()=>{const saved=JSON.parse(localStorage.getItem('purchaseSimulatorSaved')||'{}'),keys=Object.keys(saved);if(!keys.length){alert('保存案件はありません。');return}const choice=prompt('開く案件の番号を入力してください。\n'+keys.map((k,i)=>(i+1)+'. '+k).join('\n'));const d=saved[keys[Number(choice)-1]];if(d)restore(d)};
+$('newBtn').onclick=()=>{if(!confirm('入力中の内容をクリアして新規案件を作成しますか？'))return;restore({items:[{}],commonCost:0,date:new Date().toISOString().slice(0,10)})};
+$('jsonBtn').onclick=()=>download('購買比較_'+dateStamp()+'.json',JSON.stringify(snapshot(),null,2),'application/json');
+$('jsonFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{restore(JSON.parse(r.result));alert('データを読み込みました。')}catch(_){alert('JSONファイルを読み込めませんでした。')}};r.readAsText(f);e.target.value=''};
+$('csvBtn').onclick=()=>{const t=totals(),rows=[['案件名',$('project').value],['対象施設',$('facility').value],['作成日',$('date').value],[],['切り替え元メーカー','切り替え元商品','年間数量','単価','現在年間額','切り替え先メーカー','切り替え先商品','年間数量','単価','切り替え後年間額','年間削減額','初期費用']];items.forEach(x=>rows.push([x.fromMaker,x.fromName,x.fromQty,x.fromPrice,num(x.fromQty)*num(x.fromPrice),x.toMaker,x.toName,x.toQty,x.toPrice,num(x.toQty)*num(x.toPrice),num(x.fromQty)*num(x.fromPrice)-num(x.toQty)*num(x.toPrice),x.setup]));rows.push([],['現在年間費用',t.current],['切り替え後年間費用',t.after],['年間削減効果',t.saving],['商品別初期費用',items.reduce((s,x)=>s+num(x.setup),0)],['全体共通初期費用',num($('commonCost').value)],['初期費用総額',t.setup],['月間削減効果',t.monthly]);const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');download('購買比較_'+dateStamp()+'.csv',csv,'text/csv;charset=utf-8')};
+$('printBtn').onclick=()=>window.print();
+function dateStamp(){return new Date().toISOString().slice(0,10)}function download(name,data,type){const blob=new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+addItem();addItem();calculate();
+</script>
+</body>
+</html>
